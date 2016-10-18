@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# make readable txt report of dfxml file
+# make readable txt report of dates for fileobjects in a dfxml file
 # script must be run from /usr/share/dfxml/python
 
 import argparse
