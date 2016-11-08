@@ -11,6 +11,5 @@ parser = argparse.ArgumentParser()
 parser.add_argument("source", help="Path to folder to check out")
 args = parser.parse_args()
 
-
 for n in os.listdir(args.source):
     print '%s => %s (%s)' % (n, chardet.detect(n)['encoding'], chardet.detect(n)['confidence'])
