@@ -20,7 +20,7 @@ def main():
     parser = _make_parser()
     args = parser.parse_args()
 
-    txt = open(args.txt, 'wb')
+    txt = open(args.txt, 'w')
     
     num_files = int()
     num_files == 0
