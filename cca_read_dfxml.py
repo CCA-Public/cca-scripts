@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/python
 # make readable txt report of dates for fileobjects in a dfxml file
 # script must be run from /usr/share/dfxml/python
 
