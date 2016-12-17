@@ -11,9 +11,9 @@ read input_name
 echo "Files identified for deletion pre-bagging: "
 
 #find thumbs.db and .DS_Store files
-find $input_dir \( -name '.DS_Store' -or -name '._*' \)
+find $input_dir -name '.DS_Store'
+find $input_dir -name '._.DS_Store'
 find $input_dir -name 'Thumbs.db'
-find $input_dir -name 'thumbs.db'
 
 #check if okay
 echo "Proceed?"
@@ -25,9 +25,9 @@ select yn in "Yes" "No"; do
 done
 
 #delete thumbs.db and .DS_Store files
-find $input_dir \( -name '.DS_Store' -or -name '._*' \) -delete
+find $input_dir -name '.DS_Store' -delete
+find $input_dir - name '._.DS_Store' -delete
 find $input_dir -name 'Thumbs.db' -delete
-find $input_dir -name 'thumbs.db' -delete
 
 # create bag
 bagit.py --processes 4 --internal-sender-identifier="$input_id" --internal-sender-description="$input_versement" --contact-name="$input_name" --source-organization='Canadian Centre for Architecture' $input_dir
