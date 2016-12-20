@@ -23,7 +23,6 @@ sudo mv brunnhilde/ /usr/share/
 echo "Installing Brunnhilde GUI..."
 git clone https://github.com/timothyryanwalsh/brunnhilde-gui
 cd brunnhilde-gui && sudo bash install.sh
-cd ..
 
 # Install CCA Tools
 echo "Installing CCA Tools..."
