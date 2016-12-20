@@ -36,5 +36,10 @@ cd cca-tools
 sudo chmod u+x install.sh
 sudo ./install.sh
 
+# Cleanup folders
+echo "Cleaning up folders..."
+sudo rm -rf /home/bcadmin/brunnhilde-gui
+sudo rm -rf /home/bcadmin/cca-tools
+
 # Remind user to update unhfs
 echo "Finished. ONE TASK REMAINING: YOU MUST STILL UPDATE HFSEXPLORER! Use this version: https://sourceforge.net/projects/catacombae/files/HFSExplorer/0.23.1%20%28snapshot%202016-09-02%29/"
