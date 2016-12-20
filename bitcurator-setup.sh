@@ -25,14 +25,16 @@ sudo mv brunnhilde/ /usr/share/
 echo "Installing Brunnhilde GUI..."
 git clone https://github.com/timothyryanwalsh/brunnhilde-gui
 cd /home/bcadmin/brunnhilde-gui
-sudo bash install.sh
+sudo chmod u+x install.sh
+sudo ./install.sh
 
 # Install CCA Tools
 cd /home/bcadmin
 echo "Installing CCA Tools..."
 git clone https://github.com/timothyryanwalsh/cca-tools
 cd cca-tools
-sudo bash install.sh
+sudo chmod u+x install.sh
+sudo ./install.sh
 
 # Remind user to update unhfs
 echo "Finished. ONE TASK REMAINING: YOU MUST STILL UPDATE HFSEXPLORER! Use this version: https://sourceforge.net/projects/catacombae/files/HFSExplorer/0.23.1%20%28snapshot%202016-09-02%29/"
