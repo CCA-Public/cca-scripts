@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Adds TMS descriptive metadata to SIP within Archivematica Automation Tools
+
 import json
 import os
 import sys
