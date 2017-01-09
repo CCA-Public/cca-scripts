@@ -18,7 +18,7 @@ exempted_dir = "/mnt/incoming/transfers/NOT_READY_FOR_INGEST"
 if exempted_dir in current_dirs:
     current_dirs = current_dirs.remove(exempted_dir)
 
-# move 10 SIPS
+# move 10 SIPs
 counter = 0
 while counter < 10:
     current_dir = os.path.join(transfers, current_dirs[counter])
