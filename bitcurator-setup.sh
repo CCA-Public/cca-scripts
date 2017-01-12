@@ -14,12 +14,11 @@ wget -qO - https://bintray.com/user/downloadSubjectPublicKey?username=bintray | 
 echo "deb http://dl.bintray.com/siegfried/debian wheezy main" | sudo tee -a /etc/apt/sources.list
 sudo apt-get update && sudo apt-get install siegfried
 
-cd /home/bcadmin
-
 # Install Brunnhilde
 echo "Installing Brunnhilde..."
-git clone https://github.com/timothyryanwalsh/brunnhilde
-sudo mv brunnhilde/ /usr/share/
+sudo pip install brunnhilde
+
+cd /home/bcadmin
 
 # Install Brunnhilde GUI
 echo "Installing Brunnhilde GUI..."
@@ -29,17 +28,12 @@ sudo chmod u+x install.sh
 sudo ./install.sh
 
 # Install CCA Tools
-cd /home/bcadmin
-echo "Installing CCA Tools..."
-git clone https://github.com/timothyryanwalsh/cca-tools
-cd cca-tools
-sudo chmod u+x install.sh
-sudo ./install.sh
+# NEW INSTRUCTIONS TO COME!
 
 # Cleanup folders
 echo "Cleaning up folders..."
 sudo rm -rf /home/bcadmin/brunnhilde-gui
-sudo rm -rf /home/bcadmin/cca-tools
+# add cca tools
 
 # Remind user to update unhfs
 echo "Finished. ONE TASK REMAINING: YOU MUST STILL UPDATE HFSEXPLORER! Use this version: https://sourceforge.net/projects/catacombae/files/HFSExplorer/0.23.1%20%28snapshot%202016-09-02%29/"
