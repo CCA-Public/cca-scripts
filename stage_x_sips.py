@@ -22,7 +22,7 @@ if exempted_dir in current_dirs:
 
 # move number_to_move SIPs
 counter = 0
-while counter < int(number_to_move) - 1:
+while counter < int(number_to_move):
     current_dir = os.path.join(transfers, current_dirs[counter])
     try:
         shutil.move(current_dir, "/mnt/incoming/auto-transfers")
