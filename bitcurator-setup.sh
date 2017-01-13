@@ -28,7 +28,10 @@ sudo chmod u+x install.sh
 sudo ./install.sh
 
 # Install CCA Tools
-# NEW INSTRUCTIONS TO COME!
+sudo mkdir "/home/bcadmin/Desktop/CCA Tools"
+# download and install disk image processor
+# download and install folder processor
+# download and install dfxml reader
 
 # Cleanup folders
 echo "Cleaning up folders..."
