@@ -18,25 +18,41 @@ sudo apt-get update && sudo apt-get install siegfried
 echo "Installing Brunnhilde..."
 sudo pip install brunnhilde
 
-cd /home/bcadmin
-
 # Install Brunnhilde GUI
+cd /home/bcadmin
 echo "Installing Brunnhilde GUI..."
 git clone https://github.com/timothyryanwalsh/brunnhilde-gui
 cd /home/bcadmin/brunnhilde-gui
 sudo chmod u+x install.sh
 sudo ./install.sh
 
-# Install CCA Tools
-sudo mkdir "/home/bcadmin/Desktop/CCA Tools"
-# download and install disk image processor
-# download and install folder processor
-# download and install dfxml reader
+# Download and install CCA Disk Image Processor
+cd /home/bcadmin
+git clone https://github.com/timothyryanwalsh/cca-diskimageprocessor
+cd /home/bcadmin/cca-diskimageprocessor
+sudo chmod u+x install.sh
+sudo ./install.sh
+
+# Download and install CCA Folder Processor
+cd /home/bcadmin
+git clone https://github.com/timothyryanwalsh/cca-folderprocessor
+cd /home/bcadmin/cca-folderprocessor
+sudo chmod u+x install.sh
+sudo ./install.sh
+
+# Download and install DFXML Reader
+cd /home/bcadmin
+git clone https://github.com/timothyryanwalsh/dfxml-reader
+cd /home/bcadmin/dfxml-reader
+sudo chmod u+x install.sh
+sudo ./install.sh
 
 # Cleanup folders
 echo "Cleaning up folders..."
 sudo rm -rf /home/bcadmin/brunnhilde-gui
-# add cca tools
+sudo rm -rf /home/bcadmin/cca-diskimageprocessor
+sudo rm -rf /home/bcadmin/cca-folderprocessor
+sudo rm -rf /home/bcadmin/dfxml-reader
 
 # Remind user to update unhfs
 echo "Finished. ONE TASK REMAINING: YOU MUST STILL UPDATE HFSEXPLORER! Use this version: https://sourceforge.net/projects/catacombae/files/HFSExplorer/0.23.1%20%28snapshot%202016-09-02%29/"
