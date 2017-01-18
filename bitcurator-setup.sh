@@ -47,6 +47,9 @@ cd /home/bcadmin/dfxml-reader
 sudo chmod u+x install.sh
 sudo ./install.sh
 
+# Create /mnt/diskid/ directory for processing UDF and HFS disks with Disk Image Processor
+sudo mkdir /mnt/diskid
+
 # Cleanup folders
 echo "Cleaning up folders..."
 sudo rm -rf /home/bcadmin/brunnhilde-gui
