@@ -7,6 +7,7 @@ Useful for files without extensions (e.g. from HFS disks)
 Requirements:
 brew install libmagic
 sudo pip install python-magic
+(https://github.com/ahupp/python-magic)
 
 Tim Walsh
 February 2017
