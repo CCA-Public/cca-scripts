@@ -14,6 +14,9 @@ wget -qO - https://bintray.com/user/downloadSubjectPublicKey?username=bintray | 
 echo "deb http://dl.bintray.com/siegfried/debian wheezy main" | sudo tee -a /etc/apt/sources.list
 sudo apt-get update && sudo apt-get install siegfried
 
+# Force Siegfried to make single identifications
+roy build -multi 0
+
 # Install Brunnhilde
 echo "Installing Brunnhilde..."
 sudo pip install brunnhilde
