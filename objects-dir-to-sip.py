@@ -22,6 +22,7 @@ MIT License
 
 import argparse
 import csv
+import itertools
 import math
 import os
 import shutil
@@ -45,9 +46,9 @@ def convert_size(size):
     return '%s %s' % (s,size_name[i])
 
 def create_sip(target_dir):
-	"""
-	Create complete SIP from target with only objects dir
-	"""
+    """
+    Create complete SIP from target with only objects dir
+    """
         
     # set paths and create dirs
     object_dir = os.path.join(target_dir, 'objects')
@@ -68,9 +69,9 @@ def create_sip(target_dir):
     subprocess.call("cd '%s' && md5deep -rl ../objects > checksum.md5" % metadata_dir, shell=True)
 
 def write_to_spreadsheet(target_dir, spreadsheet_path):
-	"""
-	Write line about current SIP to description CSV.
-	"""
+    """
+    Write line about current SIP to description CSV.
+    """
 
     # open description spreadsheet
     spreadsheet = open(spreadsheet_path, 'a')
@@ -138,7 +139,7 @@ def write_to_spreadsheet(target_dir, spreadsheet_path):
         formatlist = ', '.join(fileformats) # format list of top file formats as human-readable
         
         # create scope and content note
-        scopecontent = 'Original directory name: "%s". Most common file formats: %s' % (os.path.basename(target_dir), formatlist)
+        scopecontent = 'File includes an .iso disk image of the dual-formatted ISO-9660/HFS CD-R and logical files exported from the disk image using FTK Imager. Most common file formats: %s' % (formatlist)
 
     # write csv row
     writer.writerow(['', os.path.basename(target_dir), '', '', date_statement, date_earliest, date_latest, 'File', extent, 
@@ -161,10 +162,10 @@ sips_dir = os.path.abspath(args.sips_dir)
 
 # create sips
 for target in os.listdir(sips_dir):
-	create_sip(os.path.join(sips_dir, target))
+    create_sip(os.path.join(sips_dir, target))
 
 # make description spreadsheet
-spreadsheet_path = os.path.join(os.path.abspath(destination), 'description.csv')
+spreadsheet_path = os.path.join(os.path.abspath(args.destination), 'description.csv')
 spreadsheet = open(spreadsheet_path, 'w')
 writer = csv.writer(spreadsheet, quoting=csv.QUOTE_NONNUMERIC)
 header_list = ['Parent ID', 'Identifier', 'Title', 'Archive Creator', 'Date expression', 'Date start', 'Date end', 
@@ -180,4 +181,4 @@ spreadsheet.close()
 
 # populate description spreadsheet
 for sip in os.listdir(sips_dir):
-	write_to_spreadsheet(os.path.join(sips_dir, sip), spreadsheet_path)
+    write_to_spreadsheet(os.path.join(sips_dir, sip), spreadsheet_path)
