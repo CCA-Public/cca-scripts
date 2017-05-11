@@ -14,6 +14,8 @@ Script for turning a bunch of directories structured as:
 into Archivematica-ready SIPs with accompanying submissionDocumentation,
 hashes, and archival description.
 
+Description customized for AP184 dual-formatted ISO/HFS CD-Rs.
+
 Python3
 
 Tim Walsh 2017
