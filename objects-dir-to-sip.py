@@ -139,8 +139,7 @@ def write_to_spreadsheet(target_dir, spreadsheet_path):
         formatlist = ', '.join(fileformats) # format list of top file formats as human-readable
         
         # create scope and content note
-        scopecontent = 'File includes an .iso disk image of the dual-formatted ISO-9660/HFS CD-R and logical files exported from the disk image using FTK Imager. Most common file formats: %s' % (formatlist)
-
+        scopecontent = 'Complete contents of CD-R %s. File includes an .iso disk image of the dual-formatted ISO-9660/HFS disk and logical files exported from the disk image using FTK Imager. Most common file formats: %s' % (os.path.basename(target_dir), formatlist)
     # write csv row
     writer.writerow(['', os.path.basename(target_dir), '', '', date_statement, date_earliest, date_latest, 'File', extent, 
         scopecontent, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
