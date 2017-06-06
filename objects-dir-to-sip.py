@@ -160,7 +160,7 @@ args = parser.parse_args()
 sips_dir = os.path.abspath(args.sips_dir)
 
 # create sips
-for target in os.listdir(sips_dir):
+for target in sorted(os.listdir(sips_dir)):
     create_sip(os.path.join(sips_dir, target))
 
 # make description spreadsheet
