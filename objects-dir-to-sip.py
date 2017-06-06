@@ -179,5 +179,5 @@ writer.writerow(header_list)
 spreadsheet.close()
 
 # populate description spreadsheet
-for sip in os.listdir(sips_dir):
+for sip in sorted(os.listdir(sips_dir)):
     write_to_spreadsheet(os.path.join(sips_dir, sip), spreadsheet_path)
