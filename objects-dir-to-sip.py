@@ -59,11 +59,11 @@ def create_sip(target_dir):
         os.makedirs(newfolder)
 
     # run brunnhilde and write to submissionDocumentation
-    files_abs = os.path.abspath(object_dir)
+    files_abs = os.path.abspath(object_dir, 'files')
     subprocess.call("brunnhilde.py -zw '%s' '%s' brunnhilde" % (files_abs, subdoc_dir), shell=True)
 
     # create dfxml and write to submissionDocumentation
-    subprocess.call("cd '%s' && python3 /usr/share/dfxml/python/walk_to_dfxml.py > '%s'" % (object_dir, os.path.join(subdoc_dir, 'dfxml.xml')), shell=True)
+    subprocess.call("cd '%s' && python3 /usr/share/dfxml/python/walk_to_dfxml.py > '%s'" % (files_abs, os.path.join(subdoc_dir, 'dfxml.xml')), shell=True)
 
     # write checksums
     subprocess.call("cd '%s' && md5deep -rl ../objects > checksum.md5" % metadata_dir, shell=True)
