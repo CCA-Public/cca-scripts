@@ -59,7 +59,7 @@ def create_sip(target_dir):
         os.makedirs(newfolder)
 
     # run brunnhilde and write to submissionDocumentation
-    files_abs = os.path.abspath(object_dir, 'files')
+    files_abs = os.path.abspath(os.path.join(object_dir, 'files'))
     subprocess.call("brunnhilde.py -zw '%s' '%s' brunnhilde" % (files_abs, subdoc_dir), shell=True)
 
     # create dfxml and write to submissionDocumentation
