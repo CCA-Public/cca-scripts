@@ -119,7 +119,7 @@ def write_to_spreadsheet(target_dir, spreadsheet_path):
     else:
         date_earliest = 'N/A'
         date_latest = 'N/A'
-    if date_earliest == date_latest:
+    if date_earliest[:4] == date_latest[:4]:
         date_statement = '%s' % date_earliest[:4]
     else:
         date_statement = '%s - %s' % (date_earliest[:4], date_latest[:4])
