@@ -7,7 +7,7 @@ import shutil
 
 # parse arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("-d", "--delete-parts", help="Delete split parts after merging", action="store_true")
+parser.add_argument("-d", "--delete_parts", help="Delete split parts after merging", action="store_true")
 parser.add_argument("source", help="Directory containing disk images and related files")
 args = parser.parse_args()
 
@@ -41,7 +41,7 @@ for target in sorted(os.listdir(source)):
 		# update user
 		print("ISO image " + os.path.join(source, basename + '.iso') + " joined.")
 		# delete split parts if -d flag thrown
-		if args.delete-parts == True:
+		if args.delete_parts == True:
 			shutil.rmtree(split_parts_dir)
 			print("Split ISO image parts for image " + os.path.join(source, basename + '.iso') + " deleted.")
 
