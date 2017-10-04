@@ -15,7 +15,7 @@ dest = os.path.abspath(args.destination)
 target = os.path.join(dest, args.dir_name)
 objects = os.path.join(target, 'objects')
 metadata = os.path.join(target, 'metadata')
-subdoc = os.path.join(metadata, subdoc)
+subdoc = os.path.join(metadata, 'submissionDocumentation')
 
 # make dirs
 for directory in target, objects, metadata, subdoc:
