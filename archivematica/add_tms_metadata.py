@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
-# Adds TMS descriptive metadata to SIP within Archivematica Automation Tools
-
 import json
 import os
 import sys
 import urllib2
 
 def main(transfer_path):
-    object_id = os.path.basename(os.path.normpath(transfer_path))
+    dirname = os.path.basename(os.path.normpath(transfer_path))
+    object_id = dirname.split('---')[0]
+    object_id = object_id.replace('_', ':') # replace underscores with colons (e.g. for DR numbers)
     data = json.load(urllib2.urlopen("http://api.tms.cca.qc.ca/API/Object/" + object_id))
 
     # save object metadata
@@ -21,6 +21,12 @@ def main(transfer_path):
         description = ''
     else:
         description = description.encode('utf-8')
+
+    dcformat_list = [item["TextEntry1"] for item in data["tmsApiTextEntries"] if item["TextType"]["TextType1"] == "Collation"]
+    if dcformat_list:
+        dcformat = dcformat_list[0].encode('utf-8')
+    else:
+        dcformat = ''
 
     date_begin = data["tmsApiObject"]["DateBegin"].encode('utf-8')
     date_end = data["tmsApiObject"]["DateEnd"].encode('utf-8')
@@ -35,12 +41,7 @@ def main(transfer_path):
         creator = creator_list[0].encode('utf-8')
     else:
         creator = ''
-   
-    parent_id_list = [item["Relationship"]["Relation1Object"]["ObjectNumber"] for item in data["tmsApiRelationships"] if item["Relationship"]["Relation1"] == "Est inclus dans"]
-    if parent_id_list:
-        parent_id = parent_id_list[0].encode('utf-8')
-    else:
-        parent_id = ''
+
     
     accession_list = [item["Relationship"]["Relation1Object"]["ObjectNumber"] for item in data["tmsApiRelationships"] if item["Relationship"]["Relation1"] == "Provient de"]
     if accession_list:
@@ -63,13 +64,13 @@ def main(transfer_path):
             'parts': 'objects',
             'dc.title': title,
             'dc.description': description,
+            'dc.format': dcformat,
             'dc.creator': creator,
             'dc.publisher': "Centre Canadien d'Architecture",
             'dc.date': date,
             'dc.identifier': object_id,
             'dc.source': accession,
             'dcterms.isPartOf': fonds_number,
-            'dc.coverage': parent_id
         }
     ]
 
