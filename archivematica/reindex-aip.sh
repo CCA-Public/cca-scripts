@@ -1,3 +1,4 @@
 #!/bin/bash
 export DJANGO_SETTINGS_MODULE=settings.common
-python /home/<user>/archivematica-devtools/tools/rebuild-elasticsearch-aip-index-from-files <path to aipstore> --uuid "$1"
+cd <path>/archivematica-devtools/tools
+/usr/share/python/archivematica-dashboard/bin/python rebuild-elasticsearch-aip-index-from-files <path to aipstore> --uuid "$1"
