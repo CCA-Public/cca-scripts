@@ -7,10 +7,9 @@ e.g. python sqlite_sql_helper.py /path/to/transfers.db "DELETE FROM aip WHERE uu
 
 """
 
-import argpase
+import argparse
 import os
 import sqlite3
-import sys
 
 def _make_parser():
     parser = argparse.ArgumentParser()
