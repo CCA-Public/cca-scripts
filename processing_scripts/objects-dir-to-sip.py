@@ -6,6 +6,12 @@ Script for turning a bunch of directories structured as:
 
 <target_dir>
    objects
+       <files>
+
+or
+
+<target_dir>
+    objects
        diskimage
            <files>
        files
@@ -45,7 +51,7 @@ def convert_size(size):
     s = s.replace('.0', '')
     return '%s %s' % (s,size_name[i])
 
-def create_sip(target_dir):
+def create_sip(target_dir, filesdir):
     """
     Create complete SIP from target with only objects dir
     """
@@ -58,12 +64,14 @@ def create_sip(target_dir):
     for newfolder in metadata_dir, subdoc_dir:
         os.makedirs(newfolder)
 
-    # run brunnhilde and write to submissionDocumentation
-    files_abs = os.path.abspath(os.path.join(object_dir, 'files'))
-    subprocess.call("brunnhilde.py -zw '%s' '%s' brunnhilde" % (files_abs, subdoc_dir), shell=True)
-
-    # create dfxml and write to submissionDocumentation
-    subprocess.call("cd '%s' && python3 /usr/share/dfxml/python/walk_to_dfxml.py > '%s'" % (files_abs, os.path.join(subdoc_dir, 'dfxml.xml')), shell=True)
+    # write brunnhilde and dfxml reports to submissionDocumentation
+    if filesdir == True:
+        files = os.path.abspath(os.path.join(object_dir, 'files'))
+        subprocess.call("brunnhilde.py -zw '%s' '%s' brunnhilde" % (files, subdoc_dir), shell=True)
+        subprocess.call("cd '%s' && python3 /usr/share/dfxml/python/walk_to_dfxml.py > '%s'" % (files, os.path.join(subdoc_dir, 'dfxml.xml')), shell=True)
+    else:
+        subprocess.call("brunnhilde.py -zw '%s' '%s' brunnhilde" % (object_dir, subdoc_dir), shell=True)
+        subprocess.call("cd '%s' && python3 /usr/share/dfxml/python/walk_to_dfxml.py > '%s'" % (object_dir, os.path.join(subdoc_dir, 'dfxml.xml')), shell=True)
 
     # write checksums
     subprocess.call("cd '%s' && md5deep -rl ../objects > checksum.md5" % metadata_dir, shell=True)
@@ -155,13 +163,14 @@ def write_to_spreadsheet(target_dir, spreadsheet_path):
 parser = argparse.ArgumentParser()
 parser.add_argument("sips_dir", help="Directory containing dirs to turn into SIPs")
 parser.add_argument("destination", help="Destination dir for spreadsheet")
+parser.add_argument("-f", "--filesdir", help="Use if SIP contains both diskimage and files directories", action="store_true")
 args = parser.parse_args()
 
 sips_dir = os.path.abspath(args.sips_dir)
 
 # create sips
 for target in sorted(os.listdir(sips_dir)):
-    create_sip(os.path.join(sips_dir, target))
+    create_sip(os.path.join(sips_dir, target), args.filesdir)
 
 # make description spreadsheet
 spreadsheet_path = os.path.join(os.path.abspath(args.destination), 'description.csv')
