@@ -40,12 +40,10 @@ def main(transfer_path):
     if not date is None:
         dc_metadata['dc.date'] = date
 
-
     creator_list = [item["DisplayName"] for item in data["tmsApiConstituentDetails"] if item["Role"] == "archive creator"]
     if creator_list:
         creator = creator_list[0].encode('utf-8')
         dc_metadata['dc.creator'] = creator
-
     
     accession_list = [item["Relationship"]["Relation1Object"]["ObjectNumber"] for item in data["tmsApiRelationships"] if item["Relationship"]["Relation1"] == "Provient de"]
     if accession_list:
