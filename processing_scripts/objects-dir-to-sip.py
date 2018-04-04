@@ -76,7 +76,7 @@ def create_sip(target_dir, filesdir):
     # write checksums
     subprocess.call("cd '%s' && md5deep -rl ../objects > checksum.md5" % metadata_dir, shell=True)
 
-def write_to_spreadsheet(target_dir, spreadsheet_path):
+def write_to_spreadsheet(target_dir, spreadsheet_path, filesdir):
     """
     Write line about current SIP to description CSV.
     """
@@ -147,7 +147,10 @@ def write_to_spreadsheet(target_dir, spreadsheet_path):
         formatlist = ', '.join(fileformats) # format list of top file formats as human-readable
         
         # create scope and content note
-        scopecontent = 'Complete contents of CD-R %s. File includes an .iso disk image of the dual-formatted ISO-9660/HFS disk and digital files exported from the disk image using FTK Imager. Most common file formats: %s' % (os.path.basename(target_dir), formatlist)
+        if filesdir:
+            scopecontent = 'File includes a disk image as well as digital files exported from the disk image using FTK Imager. Most common file formats: %s' % (os.path.basename(target_dir), formatlist)
+        else:
+            scopecontent = 'File includes digital files exported from the disk image using FTK Imager. Most common file formats: %s' % (os.path.basename(target_dir), formatlist)
     # write csv row
     writer.writerow(['', os.path.basename(target_dir), '', '', date_statement, date_earliest, date_latest, 'File', extent, 
         scopecontent, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
@@ -189,4 +192,4 @@ spreadsheet.close()
 
 # populate description spreadsheet
 for sip in sorted(os.listdir(sips_dir)):
-    write_to_spreadsheet(os.path.join(sips_dir, sip), spreadsheet_path)
+    write_to_spreadsheet(os.path.join(sips_dir, sip), spreadsheet_path, args.filesdir)
