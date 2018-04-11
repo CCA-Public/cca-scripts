@@ -76,7 +76,7 @@ def create_sip(target_dir, filesdir):
     # write checksums
     subprocess.call("cd '%s' && md5deep -rl ../objects > checksum.md5" % metadata_dir, shell=True)
 
-def write_to_spreadsheet(target_dir, spreadsheet_path, filesdir):
+def write_to_spreadsheet(target_dir, spreadsheet_path, filesdir, formatlist):
     """
     Write line about current SIP to description CSV.
     """
@@ -147,10 +147,12 @@ def write_to_spreadsheet(target_dir, spreadsheet_path, filesdir):
         formatlist = ', '.join(fileformats) # format list of top file formats as human-readable
         
         # create scope and content note
-        if filesdir:
-            scopecontent = 'File includes a disk image as well as digital files exported from the disk image using FTK Imager. Most common file formats: %s' % (os.path.basename(target_dir), formatlist)
+        if formatlist:
+            scopecontent = 'Most common file formats: %s' % (formatlist)
+        elif filesdir:
+            scopecontent = 'File includes a disk image as well as digital files exported from the disk image using FTK Imager. Most common file formats: %s' % (formatlist)
         else:
-            scopecontent = 'File includes digital files exported from the disk image using FTK Imager. Most common file formats: %s' % (os.path.basename(target_dir), formatlist)
+            scopecontent = 'File includes digital files exported from the disk image using FTK Imager. Most common file formats: %s' % (formatlist)
     # write csv row
     writer.writerow(['', os.path.basename(target_dir), '', '', date_statement, date_earliest, date_latest, 'File', extent, 
         scopecontent, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
@@ -167,6 +169,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("sips_dir", help="Directory containing dirs to turn into SIPs")
 parser.add_argument("destination", help="Destination dir for spreadsheet")
 parser.add_argument("-f", "--filesdir", help="Use if SIP contains both diskimage and files directories", action="store_true")
+parser.add_argument("--formatlist", help="Include only format list in scope and content note", action="store_true")
 args = parser.parse_args()
 
 sips_dir = os.path.abspath(args.sips_dir)
@@ -192,4 +195,4 @@ spreadsheet.close()
 
 # populate description spreadsheet
 for sip in sorted(os.listdir(sips_dir)):
-    write_to_spreadsheet(os.path.join(sips_dir, sip), spreadsheet_path, args.filesdir)
+    write_to_spreadsheet(os.path.join(sips_dir, sip), spreadsheet_path, args.filesdir, args.formatlist)
