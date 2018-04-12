@@ -15,6 +15,7 @@ def main(transfer_path):
     dc_metadata = dict()
     dc_metadata['parts'] = 'objects'
     dc_metadata['dc.publisher'] = "Centre Canadien d'Architecture"
+    dc_metadata['identifier'] = object_id
 
     # save object metadata to dict
     title = data["tmsApiObject"]["ObjectTitle"].encode('utf-8')
