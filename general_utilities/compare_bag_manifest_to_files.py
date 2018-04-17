@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+"""
+Compare BagIt manifest vs. payload
+Pass path to manifest as argument
+"""
+
 import os
 import re
 import sys
@@ -27,7 +32,7 @@ for root, dirs, files in os.walk(data):
 only_in_manifest = list(set(filepaths_manifest) - set(filepaths_data))
 only_in_payload = list(set(filepaths_data) - set(filepaths_manifest))
 
-
+# print results
 print("Files in manifest but not in payload")
 print("---")
 if not only_in_manifest:
